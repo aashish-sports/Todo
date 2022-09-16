@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useDispatch } from "react-redux";
-import { SafeAreaView, StyleSheet, TextInput,Button ,View,Text,Alert} from "react-native";
+import { SafeAreaView, StyleSheet, TextInput,Button ,View,Text,Alert,Pressable,Modal} from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import {POST_TODO,REMOVEALL_TODO} from "../saga/index";
 
@@ -9,6 +9,9 @@ const UselessTextInput = () => {
   const [name, onChangeTitle] = React.useState('');
   const [desc, onChangeDesc] = React.useState('');
   let dispatch = useDispatch();
+
+
+
   const onSubmit = (name,desc) => {
     if (name.trim().length < 1||desc.trim().length <1) {
         Alert.alert('Alert', 'Title and Description not be empty');
@@ -23,20 +26,20 @@ const UselessTextInput = () => {
    
 }
   return (
-    <SafeAreaView>
-
-      <TextInput
-        style={styles.input}
-        onChangeText={(val) => onChangeTitle(val)}
-        placeholder="Enter the Title Here."
-        value={name}
-      />
-      <TextInput
-        style={styles.input}
-        onChangeText={(val) => onChangeDesc(val)}
-        value={desc}
-        placeholder="Enter the Description Here."
-      />
+      <SafeAreaView>
+ <TextInput
+              style={styles.input}
+              onChangeText={val =>onChangeTitle(val)}
+              placeholder="Enter the Title Here."
+              value={name}
+            />
+            <TextInput
+              style={styles.input}
+              onChangeText={val =>onChangeDesc(val)}
+              value={desc}
+              placeholder="Enter the Description Here."
+            />
+      
           <SafeAreaView  style={styles.fixToText}>
           <Button 
           title="ADD"
@@ -48,6 +51,7 @@ const UselessTextInput = () => {
             // Alert.alert()
         }
         />
+         
     
               <Button 
           title="DELETE ALL"
@@ -59,7 +63,7 @@ const UselessTextInput = () => {
         />
           </SafeAreaView>
       
-    </SafeAreaView>
+       </SafeAreaView> 
   );
 };
 

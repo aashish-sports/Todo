@@ -9,7 +9,7 @@ import {
   GET_TODOS,
 } from "../redux/actions";
 
-import { fetchTodos, addTodo,doneTodo,updateTodo,deleteTodo,deleteAllTodo} from "../api/index";
+import { fetchTodos, addTodo,doneTodo,updateTodo,deleteTodo,deleteAllTodo,countAllTodo } from "../api/index";
 
 export const POST_TODO = "POST_TODO";
 export const REMOVE_TODO = "REMOVE_TODO";
@@ -17,6 +17,7 @@ export const REMOVEALL_TODO = "REMOVEALL_TODO";
 export const CHANGE_TODO = "CHANGE_TODO";
 export const DONE_TODO = "DONE_TODO";
 export const FETCH_TODOS = "FETCH_TODOS";
+export const COUNTSAGATODO="COUNTSAGATODO";
 
 function* handleFetchTodos() {
   // api call
@@ -68,6 +69,14 @@ function* handleDeleteTodo(action){
     yield put({
       type:DELETEALL_TODO,
     })}
+
+
+    // function* handleCountTodo(){
+    //   const res =yield call(countAllTodo );
+    //   yield put({
+    //     type:,
+    //     payload:{count:action.payload.ct}
+    //   })}
 //watcher saga
 function* rootSaga() {
   // yield takeEvery(ADD_TODO,handleAddTodo)
@@ -77,6 +86,7 @@ function* rootSaga() {
   yield takeEvery(REMOVE_TODO,handleDeleteTodo)
   yield takeEvery(CHANGE_TODO,handleChangeTodo);
   yield takeEvery(REMOVEALL_TODO,handleRemoveAllTodo);
+  // yield takeEvery(COUNTSAGATODO,handleCountTodo);
 }
 // watcher saga -> actions -> worker saga
 export default rootSaga;

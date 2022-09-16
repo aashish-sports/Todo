@@ -4,6 +4,7 @@ export const DELETEALL_TODO = "DELETEALL_TODO";
 export const UPDATE_TODO = "UPDATE_TODO";
 export const COMPLETE_TODO = "COMPLETE_TODO";
 export const GET_TODOS = "GET_TODOS";
+// export const COUNT_TODOS = "COUNT_TODOS";
 
 export function addTodo(todo) {
     return {
@@ -45,3 +46,9 @@ export function fetchTodos() {
         type:GET_TODOS
     }
 }
+
+// export function countTodos() {
+//     return {
+//         type:COUNT_TODOS
+//     }
+// }

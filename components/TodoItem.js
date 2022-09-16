@@ -9,15 +9,12 @@ import {
   TextInput,
   StyleSheet,
 } from 'react-native';
+//  import HTMLView from "react-native-htmlview";
 import {Card, Title, Paragraph} from 'react-native-paper';
 // import { deleteTodo, updateTodo, completeTodo } from "../redux/actions";
 // import ReactQuill from "react-quill";
 // import "react-quill/dist/quill.snow.css";
 import {DONE_TODO, CHANGE_TODO, REMOVE_TODO} from '../saga/index';
-
-
-
-
 function TodoItem({todo}) {
   const [st, setSt] = useState(false);
   const [name, setName] = useState(todo.title);
@@ -28,11 +25,12 @@ function TodoItem({todo}) {
   // const [complt, setComplt] = useState(true);
   let dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
-
+  let index=0;
   console.log(todo, 'todo in itemlist');
 
   return (
     <View id="main">
+   
       <Modal
         animationType="slide"
         transparent={true}
@@ -41,7 +39,7 @@ function TodoItem({todo}) {
           Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
         }}>
-        <View style={styles.centeredView}>
+        <View style={styles.centeredView} >
           <View style={styles.modalView}>
             <Text style={styles.modalText}>Update Todo</Text>
             <TextInput
@@ -49,12 +47,14 @@ function TodoItem({todo}) {
               onChangeText={val => setName(val)}
               placeholder="Enter the Title Here."
               value={name}
+             
             />
             <TextInput
               style={styles.input}
               onChangeText={val => setDesc(val)}
               value={desc}
               placeholder="Enter the Description Here."
+              multiline={true} 
             />
             <Pressable
               style={[styles.button, styles.buttonClose]}
@@ -79,10 +79,11 @@ function TodoItem({todo}) {
         </View>
       </Modal>
       {
-        <View className="container">
+        <View style={styles.card}>
           <View>
             <Card>
               <Card.Content>
+              
                 <Title style={styles.showText}> Title: {todo.title}</Title>
                 <Paragraph> Desc: {todo.desc}</Paragraph>
               </Card.Content>
@@ -97,7 +98,7 @@ function TodoItem({todo}) {
             </Pressable>
             <Pressable
               className="btn btn-danger m-2"
-              onPress={() =>
+              onPress={() => 
                 dispatch({
                   type: REMOVE_TODO,
                   payload: {
@@ -105,12 +106,14 @@ function TodoItem({todo}) {
                   },
                 })
               }
+            
               style={[styles.button, {backgroundColor: '#f25551'}]}>
               <Text style={styles.textStyle}>Delete</Text>
             </Pressable>
             <Pressable
               className="btn btn-danger m-2"
               onPress={() => {
+               
                 dispatch({
                   type: DONE_TODO,
                   payload: {
@@ -149,6 +152,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 22,
+
+  },card:{
+  marginTop:5,
+  marginBottom:5,
+  marginHorizontal:7
   },
   modalView: {
     margin: 20,

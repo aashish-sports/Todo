@@ -5,6 +5,7 @@ import {
   DELETEALL_TODO,
   COMPLETE_TODO,
   GET_TODOS,
+  COUNT_TODOS
 } from './actions';
 
 // export let initState = {

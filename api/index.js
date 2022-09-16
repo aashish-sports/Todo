@@ -7,6 +7,25 @@ const DONEURL = `http://localhost:8080/completeTodo`;
 const UPDATEURL = `http://localhost:8080/updateTodo`;
 const DELETEURL = `http://localhost:8080/deleteTodo`;
 const DELETEALLURL = `http://localhost:8080/deleteA`;
+const COUNTURL=`http://localhost:8080/countTodo`
+
+const countAllTodo = async () => {
+  try {
+    //  const response =await fetch(`${GETURL}`
+    const response = await axios.get(`${COUNTURL}`);
+
+    // console.log("respone done todorefer", response);
+
+    // const data=await response.json();
+    if (response.status >= 400) {
+      throw new Error();
+    }
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 
 const deleteAllTodo = async () => {
   try {
