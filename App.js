@@ -43,12 +43,12 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
     // #ffffff
-    backgroundColor: '#1E1A3C',
+    backgroundColor: '#54BAB9',
   },
   alltodo: {
     textAlign: 'left',
     fontSize: 15,
-    color: 'white',
+    color: 'black',
     // backgroundColor: '#ff3ee3',
     // borderColor: 'white',
     // borderWidth: 2,
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     textAlign: 'center',
-    color: '#fff',
+    color: 'black',
     fontSize: 20,
     fontWeight: '600',
     marginTop: 30,

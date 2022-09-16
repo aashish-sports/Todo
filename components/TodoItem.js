@@ -1,4 +1,7 @@
 import React, {useState} from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faMugSaucer} from '@fortawesome/free-solid-svg-icons/faMugSaucer';
+
 import {useDispatch} from 'react-redux';
 import {
   View,
@@ -8,6 +11,7 @@ import {
   Modal,
   TextInput,
   StyleSheet,
+  Image,
 } from 'react-native';
 //  import HTMLView from "react-native-htmlview";
 import {Card, Title, Paragraph} from 'react-native-paper';
@@ -25,12 +29,11 @@ function TodoItem({todo}) {
   // const [complt, setComplt] = useState(true);
   let dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
-  let index=0;
+  let index = 0;
   console.log(todo, 'todo in itemlist');
 
   return (
-    <View id="main">
-   
+    <View>
       <Modal
         animationType="slide"
         transparent={true}
@@ -39,7 +42,7 @@ function TodoItem({todo}) {
           Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
         }}>
-        <View style={styles.centeredView} >
+        <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>Update Todo</Text>
             <TextInput
@@ -47,14 +50,13 @@ function TodoItem({todo}) {
               onChangeText={val => setName(val)}
               placeholder="Enter the Title Here."
               value={name}
-             
             />
             <TextInput
               style={styles.input}
               onChangeText={val => setDesc(val)}
               value={desc}
               placeholder="Enter the Description Here."
-              multiline={true} 
+              multiline={true}
             />
             <Pressable
               style={[styles.button, styles.buttonClose]}
@@ -80,16 +82,77 @@ function TodoItem({todo}) {
       </Modal>
       {
         <View style={styles.card}>
-          <View>
-            <Card>
-              <Card.Content>
-              
+          <View style={{borderRadius: 10, backgroundColor: todo.status  ? '#DFE8CC' : 'white'}}>
+            <View style={{flexDirection: 'row'}}>
+              <View style={{flex: 1}}>
                 <Title style={styles.showText}> Title: {todo.title}</Title>
                 <Paragraph> Desc: {todo.desc}</Paragraph>
-              </Card.Content>
-            </Card>
+              </View>
+
+              <View style={{}}>
+                <Card.Actions>
+                  <Pressable
+                    style={[styles.button, styles.buttonOpen]}
+                    onPress={() => setModalVisible(true)}
+                    disabled={st}>
+                    {!todo.status ? <Image
+                      style={styles.tinyLogo}
+                      source={require('../public/images/icons8-edit-30.png')}
+                    />: null}
+                  </Pressable>
+                </Card.Actions>
+
+                <Card.Actions>
+                  <Pressable
+                    className="btn btn-danger m-2"
+                    onPress={() =>
+                      dispatch({
+                        type: REMOVE_TODO,
+                        payload: {
+                          id: todo.id,
+                        },
+                      })
+                    }
+                    style={[styles.button, {backgroundColor: '#f25551'}]}>
+                    <Image
+                      style={styles.tinyLogo}
+                      source={require('../public/images/icons8-remove-30.png')}
+                    />
+                  </Pressable>
+                </Card.Actions>
+
+                <Card.Actions>
+                  <Pressable
+                    className="btn btn-danger m-2"
+                    onPress={() => {
+                      dispatch({
+                        type: DONE_TODO,
+                        payload: {
+                          status: !todo.status,
+                          id: todo.id,
+                          title: todo.title,
+                          desc: todo.desc,
+                        },
+                      }),
+                        setSt(true);
+                    }}
+                    style={[
+                      styles.button,
+                      {backgroundColor: todo.status ? 'green' : '#67d5ed'},
+                    ]}
+                    disabled={todo.status}>
+                    {!todo.status ? (
+                      <Image
+                        style={styles.tinyLogo}
+                        source={require('../public/images/icons8-tick-box-48.png')}
+                      />
+                    ) : null}
+                  </Pressable>
+                </Card.Actions>
+              </View>
+            </View>
           </View>
-          <View style={styles.parent}>
+          {/* <View style={styles.parent}>
             <Pressable
               style={[styles.button, styles.buttonOpen]}
               onPress={() => setModalVisible(true)}
@@ -132,7 +195,7 @@ function TodoItem({todo}) {
               disabled={todo.status}>
               <Text style={styles.textStyle}>Complete</Text>
             </Pressable>
-          </View>
+          </View> */}
         </View>
       }
     </View>
@@ -147,16 +210,22 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#F7F7F3',
   },
+  tinyLogo: {
+    width: 20,
+    height: 20,
+  },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 22,
-
-  },card:{
-  marginTop:5,
-  marginBottom:5,
-  marginHorizontal:7
+  },
+  card: {
+    marginTop: 5,
+    marginBottom: 5,
+    marginHorizontal: 7,
+    borderRadius: 10,
+    shadowOpacity: 0.3,
   },
   modalView: {
     margin: 20,
@@ -201,10 +270,10 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
   },
-  sbar:{
-      flex: 1,
-      justifyContent: 'space-between',
-  }
+  sbar: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
 });
 
 export default TodoItem;
