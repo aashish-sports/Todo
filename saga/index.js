@@ -31,7 +31,7 @@ function* handleAddTodo(action) {
   const res = yield call(addTodo, action.payload.title, action.payload.desc);
   yield put({
     type: ADD_TODO,
-    payload: { title: action.payload.title, desc: action.payload.desc ,id:res.id},
+    payload: { title: action.payload.title, desc: action.payload.desc ,id:res.id,status:false},
   });
 }
 

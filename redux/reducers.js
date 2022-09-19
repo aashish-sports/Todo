@@ -49,9 +49,15 @@ export let reducer = (state = {todos: []}, action) => {
       //         action.payload
       //     ]
       // }
+      console.log("payload",action.payload)
+    sortedTodos=action.payload.reverse()
+    console.log("reverse",sortedTodos)
+    sortedTodos.sort((a, b) => (a.status> b.status) ? 1 : -1)
+    sortedTodos.sort((a, b) => (a.id< b.id) ? 1 : -1)
 
+    console.log("sort",sortedTodos)
       return {
-        todos: action.payload ? action.payload : [],
+        todos: action.payload ? sortedTodos: [],
       };
 
     case ADD_TODO:
@@ -59,8 +65,10 @@ export let reducer = (state = {todos: []}, action) => {
       console.log(action.payload)
       
       console.log('ADD TODO PAYLOAD', state.todos, action.payload);
+      sortedTodos=[action.payload,...state.todos,];
+      // sortedTodos.sort((a, b) => (a.status> b.status) ? 1 : -1)
       return {
-        todos: [ action.payload,...state.todos],
+        todos: sortedTodos,
       };
 
     case DELETE_TODO:
@@ -112,8 +120,12 @@ export let reducer = (state = {todos: []}, action) => {
         newTodos[ind] = action.payload;
        
       }
+      sortedTodos=[...newTodos]
+      console.log(sortedTodos);
+      sortedTodos.sort((a, b) => (a.status> b.status) ? 1 : -1)
+      console.log(sortedTodos)
       //  let k=newTodos.length-1,l=0,i=0;
-      //  sortedTodos=[]
+      //  sortedTodos=[newTodos.length]
   
       // while(l<k)
       // {
@@ -129,7 +141,7 @@ export let reducer = (state = {todos: []}, action) => {
      
       return {
         ...state,
-        todos:newTodos
+        todos:sortedTodos
       }
 
     default:
