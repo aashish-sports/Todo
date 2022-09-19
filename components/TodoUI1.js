@@ -99,7 +99,7 @@ const TodoUI1 = () => {
            {type:REMOVEALL_TODO} 
           );
         }}>
-        <Text style={styles.textStyle}>DELETE TODO ALL</Text>
+        <Text style={styles.textStyle}>DELETE ALL</Text>
       </Pressable>
       </View>
 

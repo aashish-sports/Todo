@@ -1,3 +1,5 @@
+import { faMehRollingEyes } from '@fortawesome/free-regular-svg-icons';
+import { faMugTea } from '@fortawesome/sharp-solid-svg-icons';
 import {
   ADD_TODO,
   UPDATE_TODO,
@@ -57,9 +59,8 @@ export let reducer = (state = {todos: []}, action) => {
       console.log(action.payload)
       
       console.log('ADD TODO PAYLOAD', state.todos, action.payload);
-
       return {
-        todos: [...state.todos, action.payload],
+        todos: [ action.payload,...state.todos],
       };
 
     case DELETE_TODO:
@@ -109,10 +110,26 @@ export let reducer = (state = {todos: []}, action) => {
       }
       if (ind != -1) {
         newTodos[ind] = action.payload;
-        return {
-          ...state,
-          todos: newTodos,
-        };
+       
+      }
+      //  let k=newTodos.length-1,l=0,i=0;
+      //  sortedTodos=[]
+  
+      // while(l<k)
+      // {
+      //   if(newTodos[i].status==0)
+      //     {
+      //       sortedTodos[l++]=newTodos[i];
+      //     }
+      //     else{
+      //       sortedTodos[k--]=newTodos[i]
+      //     }
+      //     i++;
+      // }
+     
+      return {
+        ...state,
+        todos:newTodos
       }
 
     default:

@@ -13,6 +13,7 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
+import CardSilder from 'react-native-cards-slider';
 //  import HTMLView from "react-native-htmlview";
 import {Card, Title, Paragraph} from 'react-native-paper';
 // import { deleteTodo, updateTodo, completeTodo } from "../redux/actions";
@@ -31,7 +32,8 @@ function TodoItem({todo}) {
   const [modalVisible, setModalVisible] = useState(false);
   let index = 0;
   console.log(todo, 'todo in itemlist');
-
+  const regex = /<[^>]*>/mgi
+  const text_without_tags = todo.desc.replace(regex, "")
   return (
     <View>
       <Modal
@@ -53,6 +55,7 @@ function TodoItem({todo}) {
             />
             <TextInput
               style={styles.input}
+              // numberOfLines={100}
               onChangeText={val => setDesc(val)}
               value={desc}
               placeholder="Enter the Description Here."
@@ -81,12 +84,14 @@ function TodoItem({todo}) {
         </View>
       </Modal>
       {
+  
         <View style={styles.card}>
           <View style={{borderRadius: 10, backgroundColor: todo.status  ? '#DFE8CC' : 'white'}}>
             <View style={{flexDirection: 'row'}}>
               <View style={{flex: 1}}>
                 <Title style={styles.showText}> Title: {todo.title}</Title>
-                <Paragraph> Desc: {todo.desc}</Paragraph>
+
+                <Paragraph> Desc: {text_without_tags}</Paragraph>
               </View>
 
               <View style={{}}>
@@ -197,13 +202,14 @@ function TodoItem({todo}) {
             </Pressable>
           </View> */}
         </View>
+  
       }
     </View>
   );
 }
 const styles = StyleSheet.create({
   input: {
-    height: 40,
+    height: 80,
     width: 300,
     margin: 10,
     borderWidth: 1,
@@ -230,7 +236,7 @@ const styles = StyleSheet.create({
   modalView: {
     margin: 20,
     length: 500,
-    backgroundColor: 'white',
+     backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
     alignItems: 'center',
@@ -270,6 +276,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
   },
+//   showText:{
+// color:'white',
+//   },
   sbar: {
     flex: 1,
     justifyContent: 'space-between',
